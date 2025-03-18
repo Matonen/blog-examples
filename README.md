@@ -37,10 +37,16 @@ Follow these steps to deploy solutions to Azure:
 5. Deploy the stack:
 
     ```shell
-    az stack sub create --name {stack} --subscription {subscription} --location {location} --deny-settings-mode none --action-on-unmanage deleteAll --template-file main.bicep --parameters {env}.bicepparam
+    az stack sub create --name {stack} --subscription {subscription} --location {location} --deny-settings-mode none --action-on-unmanage detachAll --template-file main.bicep --parameters {env}.bicepparam
     ```
 
 *Replace placeholders (e.g., {stack}, {subscription}, {location}, {env}) with your actual parameters.*
+
+Deployment stacks is not supported in Microsoft Graph Bicep. Thus to deploy `fabric-mirroring` stack we need to use az deployment command.
+
+```shell
+az deployment sub create --subscription {subscription} --location {location} --template-file main.bicep --parameters {env}.bicepparam
+ ```
 
 ## License
 
