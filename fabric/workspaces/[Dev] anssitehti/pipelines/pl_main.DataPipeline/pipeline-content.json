@@ -1,0 +1,23 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "23da10a5-13c9-badc-4937-25be193c1b6d",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "sessionTag": "hc01"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Load SWAPI data",
+        "dependsOn": []
+      }
+    ]
+  }
+}
