@@ -69,7 +69,7 @@ else
 fi
 
 log_step "Installing Fabric CI-CD tools..."
-if pip install fabric-cicd --quiet; then
+if pip install fabric-cicd --quiet --break-system-packages; then
     log_success "fabric-cicd installed successfully"
 else
     log_error "Failed to install fabric-cicd"

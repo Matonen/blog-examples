@@ -21,12 +21,12 @@ def parse_arguments() -> DeploymentConfig:
     parser.add_argument('--workspace_id', type=str, required=True,
                         help='The ID of the target Fabric workspace')
     parser.add_argument('--environment', type=str, required=True,
-                        choices=['dev', 'test', 'prod'],
-                        help='The target environment (dev, test, or prod)')
+                        choices=['test', 'prod'],
+                        help='The target environment (test or prod)')
     parser.add_argument('--source_directory', type=str, required=True,
                         help='Path to the source directory containing Fabric items')
-    parser.add_argument('--items_in_scope', type=str, required=True,
-                        help='Comma-separated list of item types to process')
+    parser.add_argument('--items_in_scope', type=str, required=False,
+                        help='Comma-separated list of item types to process (optional - if not provided or empty, all item types will be processed)')
 
     args = parser.parse_args()
 
@@ -44,23 +44,22 @@ def parse_arguments() -> DeploymentConfig:
         print("❌ Error: source_directory is required!")
         sys.exit(1)
 
-    if not args.items_in_scope:
-        print("❌ Error: items_in_scope is required!")
-        sys.exit(1)
-
-    # Parse and clean item types
-    item_types = [item.strip()
-                  for item in args.items_in_scope.split(",") if item.strip()]
-
-    if not item_types:
-        print("❌ Error: At least one item type must be specified in items_in_scope!")
-        sys.exit(1)
+    # Parse and clean item types - handle None or empty string
+    if args.items_in_scope and args.items_in_scope.strip():
+        item_types = [item.strip()
+                      for item in args.items_in_scope.split(",") if item.strip()]
+        if not item_types:
+            print("❌ Error: At least one item type must be specified in items_in_scope!")
+            sys.exit(1)
+    else:
+        # If items_in_scope is not provided or empty, use empty list (deploy all items)
+        item_types = []
 
     return DeploymentConfig(
         workspace_id=args.workspace_id,
         environment=args.environment,
         repository_directory=str(
-            Path(__file__).resolve().parent / "workspaces" / args.source_directory),
+            Path.cwd() / "workspaces" / args.source_directory),
         item_types=item_types
     )
 
@@ -73,7 +72,9 @@ def print_deployment_header(config: DeploymentConfig) -> None:
     print(f"🏢 Workspace ID: {config.workspace_id}")
     print(f"🌍 Environment: {config.environment}")
     print(f"📁 Repository Directory: {config.repository_directory}")
-    print(f"📦 Items in Scope: {', '.join(config.item_types)}")
+    items_display = ', '.join(
+        config.item_types) if config.item_types else "All item types"
+    print(f"📦 Items in Scope: {items_display}")
     print()
 
 
