@@ -1,6 +1,6 @@
 import argparse
 import sys
-from typing import List, NamedTuple
+from typing import List, NamedTuple, Optional
 from pathlib import Path
 
 from fabric_cicd import FabricWorkspace, publish_all_items, unpublish_all_orphan_items
@@ -11,7 +11,7 @@ class DeploymentConfig(NamedTuple):
     workspace_id: str
     environment: str
     repository_directory: str
-    item_types: List[str]
+    item_types: Optional[List[str]]
 
 
 def parse_arguments() -> DeploymentConfig:
@@ -52,8 +52,8 @@ def parse_arguments() -> DeploymentConfig:
             print("❌ Error: At least one item type must be specified in items_in_scope!")
             sys.exit(1)
     else:
-        # If items_in_scope is not provided or empty, use empty list (deploy all items)
-        item_types = []
+        # If items_in_scope is not provided or empty, use None (deploy all items)
+        item_types = None
 
     return DeploymentConfig(
         workspace_id=args.workspace_id,
@@ -72,8 +72,7 @@ def print_deployment_header(config: DeploymentConfig) -> None:
     print(f"🏢 Workspace ID: {config.workspace_id}")
     print(f"🌍 Environment: {config.environment}")
     print(f"📁 Repository Directory: {config.repository_directory}")
-    items_display = ', '.join(
-        config.item_types) if config.item_types else "All item types"
+    items_display = ', '.join(config.item_types) if config.item_types else "All item types"
     print(f"📦 Items in Scope: {items_display}")
     print()
 
