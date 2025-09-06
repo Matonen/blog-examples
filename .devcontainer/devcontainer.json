@@ -8,7 +8,8 @@
 	"features": {
 		"ghcr.io/devcontainers/features/azure-cli:1": {
 			"extensions": ""
-		}
+		},
+		"ghcr.io/devcontainers/features/python:1":{}
 	},
 	"onCreateCommand": "sh .devcontainer/onCreateCommand.sh"
 }
