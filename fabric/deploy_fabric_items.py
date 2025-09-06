@@ -48,9 +48,6 @@ def parse_arguments() -> DeploymentConfig:
     if args.items_in_scope and args.items_in_scope.strip():
         item_types = [item.strip()
                       for item in args.items_in_scope.split(",") if item.strip()]
-        if not item_types:
-            print("❌ Error: At least one item type must be specified in items_in_scope!")
-            sys.exit(1)
     else:
         # If items_in_scope is not provided or empty, use None (deploy all items)
         item_types = None

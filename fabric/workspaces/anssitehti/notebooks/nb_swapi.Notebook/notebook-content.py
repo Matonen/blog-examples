@@ -45,7 +45,7 @@ print(f"Fetched {len(planets)} planets from SWAPI")
 df = spark.createDataFrame(planets)
 df.write.format("delta").mode("overwrite").saveAsTable("planets")
 
-display(planets)
+display(df)
 
 # METADATA ********************
 
