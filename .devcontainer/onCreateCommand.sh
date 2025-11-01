@@ -150,6 +150,29 @@ else
     exit 1
 fi
 
+log_step "Installing Python packages..."
+if [ -f .devcontainer/requirements.txt ]; then
+    log_info "Installing packages from requirements.txt..."
+    if pip install -r .devcontainer/requirements.txt --quiet; then
+        log_success "Python packages installed successfully"
+    else
+        log_error "Failed to install Python packages"
+        exit 1
+    fi
+else
+    log_error "requirements.txt not found"
+    exit 1
+fi
+
+log_step "Installing Node.js packages..."
+log_info "Installing @openai/codex globally..."
+if npm i -g @openai/codex; then
+    log_success "Node.js packages installed successfully"
+else
+    log_error "Failed to install Node.js packages"
+    exit 1
+fi
+
 log_header "Setup Complete! 🎉"
 log_success "All tools installed successfully!"
 log_info "Your development environment is ready to use."
@@ -160,4 +183,7 @@ printf "  • ${GREEN}k3d${NC} - Kubernetes in Docker\n"
 printf "  • ${GREEN}k9s${NC} - Kubernetes CLI UI\n"
 printf "  • ${GREEN}trivy${NC} - Security scanner\n"
 printf "  • ${GREEN}k3s cluster${NC} - Kubernetes cluster (port: 8080)\n"
+printf "${CYAN}📦 Installed packages:${NC}\n"
+printf "  • ${GREEN}fabric-cicd${NC} (Python)\n"
+printf "  • ${GREEN}@openai/codex${NC} (npm)\n"
 printf "\n"

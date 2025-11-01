@@ -14,5 +14,31 @@
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
 	},
 	"onCreateCommand": "bash .devcontainer/onCreateCommand.sh",
-	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh"
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-bicep",
+				"DavidAnson.vscode-markdownlint",
+				"openai.chatgpt",
+				"redhat.vscode-yaml",
+				"bierner.markdown-preview-github-styles"
+			],
+			"mcp": {
+				"servers": {
+					"containerization-assist": {
+						"command": "npx",
+						"args": [
+							"-y",
+							"containerization-assist-mcp",
+							"start"
+						],
+						"env": {
+							"DOCKER_SOCKET": "/var/run/docker.sock",
+							"LOG_LEVEL": "info"
+						}
+					}
+				}
+			}
+		}
+	}
 }
