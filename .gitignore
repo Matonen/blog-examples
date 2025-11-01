@@ -116,3 +116,8 @@ appsettings.Development.json
 .trivyignore
 trivy-*.json
 trivy-*.sarif
+
+# apps
+apps/*/k8s/
+apps/*/Dockerfile
+apps/*/.dockerignore
