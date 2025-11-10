@@ -1,9 +1,0 @@
-{
-    "recommendations": [
-        "ms-azuretools.vscode-bicep",
-        "DavidAnson.vscode-markdownlint",
-        "openai.chatgpt",
-        "redhat.vscode-yaml",
-        "bierner.markdown-preview-github-styles"
-    ]
-}
