@@ -21,7 +21,8 @@
 				"DavidAnson.vscode-markdownlint",
 				"openai.chatgpt",
 				"redhat.vscode-yaml",
-				"bierner.markdown-preview-github-styles"
+				"bierner.markdown-preview-github-styles",
+				"ms-azuretools.vscode-azure-mcp-server"
 			],
 			"mcp": {
 				"servers": {

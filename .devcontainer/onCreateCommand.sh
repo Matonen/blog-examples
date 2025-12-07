@@ -127,6 +127,27 @@ else
     exit 1
 fi
 
+log_step "Installing Azure Quick Review CLI (azqr)..."
+log_info "Downloading azqr binary..."
+AZQR_URL="https://github.com/Azure/azqr/releases/latest/download/azqr-ubuntu-latest-amd64"
+if curl -sL "$AZQR_URL" -o /tmp/azqr && \
+   chmod +x /tmp/azqr && \
+   sudo mv /tmp/azqr /usr/local/bin/azqr; then
+    log_success "azqr installed successfully"
+else
+    log_error "Failed to install azqr"
+    exit 1
+fi
+
+log_step "Installing Azure Developer CLI (azd)..."
+log_info "Downloading and installing azd from official script..."
+if curl -fsSL https://aka.ms/install-azd.sh | bash; then
+    log_success "azd installed successfully"
+else
+    log_error "Failed to install azd"
+    exit 1
+fi
+
 log_step "Setting up k3s cluster..."
 log_info "Checking for existing k3s cluster..."
 if k3d cluster list | grep -q "k3s-default"; then
@@ -182,6 +203,8 @@ printf "  • ${GREEN}kubectl${NC} - Kubernetes command-line tool\n"
 printf "  • ${GREEN}k3d${NC} - Kubernetes in Docker\n"
 printf "  • ${GREEN}k9s${NC} - Kubernetes CLI UI\n"
 printf "  • ${GREEN}trivy${NC} - Security scanner\n"
+printf "  • ${GREEN}azqr${NC} - Azure Quick Review CLI\n"
+printf "  • ${GREEN}azd${NC} - Azure Developer CLI\n"
 printf "  • ${GREEN}k3s cluster${NC} - Kubernetes cluster (port: 8080)\n"
 printf "${CYAN}📦 Installed packages:${NC}\n"
 printf "  • ${GREEN}fabric-cicd${NC} (Python)\n"
