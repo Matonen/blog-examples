@@ -22,7 +22,8 @@
 				"openai.chatgpt",
 				"redhat.vscode-yaml",
 				"bierner.markdown-preview-github-styles",
-				"ms-azuretools.vscode-azure-mcp-server"
+				"ms-azuretools.vscode-azure-mcp-server",
+				"Upstash.context7-mcp"
 			],
 			"mcp": {
 				"servers": {
